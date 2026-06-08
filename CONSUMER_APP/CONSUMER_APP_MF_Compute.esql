@@ -1,0 +1,59 @@
+
+
+
+DECLARE allowedMethod EXTERNAL CHARACTER '';
+
+
+CREATE COMPUTE MODULE CONSUMER_APP_MF_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE customerId CHARACTER;
+		DECLARE backendURL CHARACTER 'http://localhost:7666/AppProvider';
+		IF CARDINALITY(InputRoot.JSON.Data.*[]) = 0 THEN
+			THROW USER EXCEPTION VALUES('Empty payload');
+		END IF;
+
+		SET customerId = TRIM(InputRoot.JSON.Data.customerId);
+
+		IF customerId IS NULL THEN
+			THROW USER EXCEPTION VALUES('customerId missing');
+		END IF;
+
+		IF customerId = '' THEN
+			THROW USER EXCEPTION VALUES('customerId empty');
+		END IF;
+
+		IF LENGTH(customerId) <> 12 THEN
+			THROW USER EXCEPTION VALUES('customerId should be 12 digits');
+		END IF;
+
+		DECLARE method CHARACTER;
+
+		SET method =SUBSTRING(InputRoot.HTTPInputHeader."X-Original-HTTP-Command"
+		FROM 1 FOR POSITION(' ' IN InputRoot.HTTPInputHeader."X-Original-HTTP-Command") - 1);
+		IF UPPER(method) <> UPPER(allowedMethod) THEN
+			THROW USER EXCEPTION VALUES('Method Not Allowed');
+		END IF;
+
+		DECLARE i INTEGER 1;
+		DECLARE ch CHARACTER;
+
+		WHILE i <= LENGTH(customerId) DO
+			SET ch = SUBSTRING(customerId FROM i FOR 1);
+			IF ch < '0' OR ch > '9' THEN
+				THROW USER EXCEPTION VALUES('Only Numbers Allowed');
+			END IF;
+			SET i = i + 1;
+		END WHILE;
+
+		IF customerId = '111111111111' THEN
+			SET backendURL = 'http://localhost:7666/wrong';
+		ELSEIF customerId = '000000000001' THEN
+			SET backendURL = 'http://localhost:9999/AppProvider';
+		END IF;
+		--SET Environment.BackendURL = backendURL;
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = backendURL;
+		SET OutputRoot.JSON.Data.customerId = customerId;
+		RETURN TRUE;
+	END;
+END MODULE;

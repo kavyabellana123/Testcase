@@ -1,0 +1,20 @@
+
+
+CREATE COMPUTE MODULE CONSUMER_APP_MF_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		IF InputRoot.JSON.Data.statusCode IS NOT NULL THEN
+			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
+			SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode =CAST(InputRoot.JSON.Data.statusCode AS INTEGER);
+
+		ELSE
+			SET OutputRoot.JSON.Data.responseCode = '200';
+			SET OutputRoot.JSON.Data.message =InputRoot.JSON.Data.hostStatus;
+			SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = 200;
+
+		END IF;
+
+		RETURN TRUE;
+	END;
+END MODULE;

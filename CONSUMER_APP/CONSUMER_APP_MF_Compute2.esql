@@ -1,0 +1,16 @@
+
+
+
+
+CREATE COMPUTE MODULE CONSUMER_APP_MF_Compute2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		DELETE FIELD OutputRoot;
+		CREATE LASTCHILD OF OutputRoot DOMAIN('JSON');
+		SET OutputRoot.JSON.Data =Environment.ErrorResponse;
+	--	SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = Environment.ErrorResponse.statusCode;
+
+		RETURN TRUE;
+	END;
+END MODULE;
