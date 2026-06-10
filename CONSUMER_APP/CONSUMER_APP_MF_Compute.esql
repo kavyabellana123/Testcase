@@ -7,8 +7,10 @@ DECLARE allowedMethod EXTERNAL CHARACTER '';
 CREATE COMPUTE MODULE CONSUMER_APP_MF_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
+		
+		log EVENT VALUES ('channelReq');
 		DECLARE customerId CHARACTER;
-		DECLARE backendURL CHARACTER 'http://localhost:7666/AppProvider';
+		DECLARE backendURL CHARACTER 'http://localhost:7666/AppProvider1';
 		IF CARDINALITY(InputRoot.JSON.Data.*[]) = 0 THEN
 			THROW USER EXCEPTION VALUES('Empty payload');
 		END IF;
@@ -49,11 +51,13 @@ CREATE COMPUTE MODULE CONSUMER_APP_MF_Compute
 		IF customerId = '111111111111' THEN
 			SET backendURL = 'http://localhost:7666/wrong';
 		ELSEIF customerId = '000000000001' THEN
-			SET backendURL = 'http://localhost:9999/AppProvider';
+			SET backendURL = 'http://localhost:9999/AppProvider1';
 		END IF;
 		--SET Environment.BackendURL = backendURL;
 		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = backendURL;
 		SET OutputRoot.JSON.Data.customerId = customerId;
+		
+		LOG EVENT VALUES('Hostrequest');
 		RETURN TRUE;
 	END;
 END MODULE;

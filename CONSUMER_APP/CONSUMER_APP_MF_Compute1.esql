@@ -3,7 +3,8 @@
 CREATE COMPUTE MODULE CONSUMER_APP_MF_Compute1
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-
+		LOG EVENT VALUES('HostResponse');
+	
 		IF InputRoot.JSON.Data.statusCode IS NOT NULL THEN
 			SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
 			SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode =CAST(InputRoot.JSON.Data.statusCode AS INTEGER);
@@ -14,8 +15,8 @@ CREATE COMPUTE MODULE CONSUMER_APP_MF_Compute1
 			SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = 200;
 
 		END IF;
-		-- sdgcsdgjlhab
-
+		
+		LOG EVENT VALUES('ChannelResponse');
 		RETURN TRUE;
 	END;
 END MODULE;

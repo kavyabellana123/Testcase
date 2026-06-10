@@ -10,25 +10,25 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/CONSUMER_APP/icons/full/obj16/CONSUMER_APP_MF.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/CONSUMER_APP/icons/full/obj30/CONSUMER_APP_MF.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="-832,155" URLSpecifier="/AppConsumer" messageDomainProperty="JSON">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="27,173" URLSpecifier="/AppConsumer" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="-10,151">
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="849,169">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="-565,151" URLSpecifier="http://localhost:7666/AppProvider" httpVersion="1.1" protocol="TLS" messageDomainProperty="JSON">
+      <nodes xmi:type="ComIbmWSRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="294,169" URLSpecifier="http://localhost:7666/AppProvider1" httpVersion="1.1" protocol="TLS" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="HTTP Request"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="-704,149" computeExpression="esql://routine/#CONSUMER_APP_MF_Compute.Main" computeMode="all">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="155,167" computeExpression="esql://routine/#CONSUMER_APP_MF_Compute.Main" computeMode="all">
         <translation xmi:type="utility:ConstantString" string="Validation"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="-421,150" computeExpression="esql://routine/#CONSUMER_APP_MF_Compute1.Main" computeMode="all">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="438,168" computeExpression="esql://routine/#CONSUMER_APP_MF_Compute1.Main" computeMode="all">
         <translation xmi:type="utility:ConstantString" string="SuccessResult"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="-219,23" computeExpression="esql://routine/#CONSUMER_APP_MF_Compute2.Main" computeMode="all">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="640,41" computeExpression="esql://routine/#CONSUMER_APP_MF_Compute2.Main" computeMode="all">
         <translation xmi:type="utility:ConstantString" string="ErrorResponse"/>
       </nodes>
-      <nodes xmi:type="ExceptionHandler_Exception.subflow:FCMComposite_1" xmi:id="FCMComposite_1_7" location="-391,25">
+      <nodes xmi:type="ExceptionHandler_Exception.subflow:FCMComposite_1" xmi:id="FCMComposite_1_7" location="468,43">
         <translation xmi:type="utility:ConstantString" string="Exception"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
