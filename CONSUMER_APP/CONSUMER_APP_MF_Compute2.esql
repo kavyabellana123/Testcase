@@ -1,11 +1,8 @@
 
-
-
-
 CREATE COMPUTE MODULE CONSUMER_APP_MF_Compute2
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		--dummy 
+		--dummy comment 
 		LOG EVENT VALUES('Error Response');
 
 		DELETE FIELD OutputRoot;
